@@ -181,6 +181,19 @@ vector<Sprite> loadLevel(Texture& texture)
     return sprite_map;
 }
 
+
+float lengh(vec2 v)
+{
+    return sqrt(v.x * v.x + v.y * v.y);
+}
+
+vec2 normalize(vec2 dep)
+{
+    float l = lengh(dep);
+    return dep / l;
+}
+
+
 void treat_key_realese(Keyboard::Key key_code)
 {
     switch (key_code)
@@ -260,6 +273,10 @@ int main()
             }
         }
 
+        if (lengh(movement) != 0)
+        {
+            movement = 0.1f*normalize(movement);
+        }
         sprite.move(movement);
         window.clear();
         for (int i = 0;i < sprite_map.size(); i++)
